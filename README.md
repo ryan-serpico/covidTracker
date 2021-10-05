@@ -10,6 +10,6 @@ This tool pulls data from the city of San Antonio's COVID-19 open data portal an
 3. Run `python app.py`.
 
 ## Backstory
-Our [COVID-19 dashboard](https://www.expressnews.com/coronavirus/article/coronavirus-tracking-san-antonio-texas-15301562.php) has been powered by this code since the start of the pandemic. Up until now, I've been running it on a [Linode](http://linode.com/) server that I spun up for $5 a month. Then a colleague tossed the idea of running it for free on GitHub using GitHub Actions ... something I did not know about. 
+Our [COVID-19 dashboard](https://www.expressnews.com/coronavirus/article/coronavirus-tracking-san-antonio-texas-15301562.php) has been powered by this code since the start of the pandemic. Up until now, I've been running it on a [Linode](http://linode.com/) server that I spun up for $5 a month. Then a colleague suggested I run it for free on GitHub using GitHub Actions ... something I did not know about. 
 
 GitHub Actions are legit.

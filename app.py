@@ -4,8 +4,6 @@ import pandas as pd
 import datetime
 import os
 
-# Changing this line
-
 os.makedirs('data', exist_ok=True)
 
 

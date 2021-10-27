@@ -432,7 +432,7 @@ def getPatientStatus(data):
 # July 13, 2021 Functions
 getWeeklyPositivity(weeklyLabData)
 getWeeklyCaseChange(weeklyData)
-GetActiveCaseMap()
+# GetActiveCaseMap()
 
 # DAILY GRAPHICS
 getSevenDayNewCases(dailyData)

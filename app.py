@@ -37,6 +37,27 @@ weeklyLabData = getWeeklyLabData()
 
 # DAILY GRAPHICS
 
+def getLast90Days(data):
+    '''
+    TK TK TK
+    '''
+    dateColumn = []
+    newCaseList = []
+    startRow = len(data) - 90
+    for i in range(startRow, len(data)):
+        datetime_time = datetime.datetime.fromtimestamp(data[i]['attributes']['reporting_date'] / 1000).strftime("%Y-%m-%d")
+        print(datetime_time)
+        dateColumn.append(datetime_time)
+        newCaseList.append(data[i]['attributes']['count_7_day_moving_avg'])
+    
+    df = pd.DataFrame()
+    df['Date'] = dateColumn
+    df['Cases'] = newCaseList
+
+    # Sort the DF by the date.
+    df['Date'] = pd.to_datetime(df['Date'])
+    df = df.sort_values(by='Date')
+    df.to_csv('data/last90Days.csv', index=False)
 
 def getSevenDayNewCases(data):
     '''
@@ -435,9 +456,9 @@ getWeeklyCaseChange(weeklyData)
 # GetActiveCaseMap()
 
 # DAILY GRAPHICS
+getLast90Days(dailyData)
 getSevenDayNewCases(dailyData)
 getCumConfirmedCases(dailyData)
-getSevenDayNewCases(dailyData)
 getUpdateTable(dailyData)
 getSevenDayNewDeaths(dailyData)
 getPatientStatus(dailyData)

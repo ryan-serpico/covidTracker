@@ -421,6 +421,9 @@ def getCumDeaths(data):
     df['Date'] = dateColumn
     df['Cumulative Deaths'] = deathsCumList
 
+    # Thursday, June 30, 2022: Metro health entered the data incorrectly. The cumulative death count was 
+    df.at[df.index[df['Date'] == '2022-06-24'].to_list()[0], 'Cumulative Deaths'] = 5338
+
     # Sort the DF by the date.
     df['Date'] = pd.to_datetime(df['Date'])
     df = df.sort_values(by='Date')

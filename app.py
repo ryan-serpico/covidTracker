@@ -1,9 +1,11 @@
-import requests
-import json
-import pandas as pd
-import datetime
-import os
 import csv
+import datetime
+import json
+import os
+from curses import pair_number
+
+import pandas as pd
+import requests
 
 os.makedirs('data', exist_ok=True)
 
@@ -224,10 +226,11 @@ def getSevenDayNewDeaths(data):
     df = pd.DataFrame()
     df['Date'] = dateColumn
     df['Deaths'] = deathsCumList
+    # Thursday, June 30, 2022: Metro health entered the data incorrectly. The death change was 1.
+    df.at[df.index[df['Date'] == '2022-06-24'].to_list()[0], 'Deaths'] = 1
     df['7-day rolling average'] = df['Deaths'].rolling(7).mean().round(1)
     df['Baseline'] = baselineList
     df = df.dropna(subset=['7-day rolling average'])
-
     # Sort by date
     df['Date'] = pd.to_datetime(df['Date'])
     df = df.sort_values(by='Date')

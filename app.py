@@ -2,7 +2,6 @@ import csv
 import datetime
 import json
 import os
-from curses import pair_number
 
 import pandas as pd
 import requests
@@ -482,6 +481,21 @@ def getTexasCountyData():
     df.columns = ['County', 'Cases']
     df.to_csv('data/texas_county_data.csv', index=False)
 
+def createMetadata():
+    print('Creating metadata...')
+    # Save current date to variable in this format: Aug. 4, 2022, 3:00 PM
+    date = datetime.datetime.now().strftime("%b. %d, %Y, %I:%M %p")
+    # date = datetime.datetime.now().strftime("%b. %d, %Y")
+    s = f'Data as of {date}'
+    data = {}
+    
+    # Create nested dictionary with metadata
+    data['annotate'] = {'notes': s}
+
+    json_data = json.dumps(data)
+    with open('data/metadata.json', 'w') as f:
+        f.write(json_data)
+
 # July 13, 2021 Functions
 getWeeklyPositivity(weeklyLabData)
 getWeeklyCaseChange(weeklyData)
@@ -499,3 +513,5 @@ getCumDeaths(dailyData)
 
 # State data
 getTexasCountyData()
+
+createMetadata()

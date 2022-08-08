@@ -484,7 +484,7 @@ def getTexasCountyData():
 def createMetadata():
     print('Creating metadata...')
     # Save current date to variable in this format: Aug. 4, 2022
-    date = datetime.datetime.now().strftime("%b. %-d, %Y, %I:%M %p")
+    date = datetime.datetime.now().strftime("%b. %-d, %Y")
     s = f'Data as of {date}'
     data = {}
     

@@ -476,7 +476,7 @@ def getPatientStatus(data):
     df.to_csv('data/patient_status.csv', index=False)
 
 def getTexasCountyData():
-    df = pd.read_excel('https://dshs.texas.gov/coronavirus/TexasCOVID19DailyCountyCaseCountData.xlsx', sheet_name='Cases by County 2022', skiprows=2)
+    df = pd.read_excel('https://dshs.texas.gov/coronavirus/COVID19NewConfirmedCasesbyCounty.xlsx', sheet_name='Cases by County 2022', skiprows=2)
     df = df.iloc[:,list([0] + [-1])]
     df.columns = ['County', 'Cases']
     df.to_csv('data/texas_county_data.csv', index=False)

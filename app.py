@@ -476,7 +476,7 @@ def getPatientStatus(data):
     df.to_csv('data/patient_status.csv', index=False)
 
 def getTexasCountyData():
-    df = pd.read_excel('https://dshs.texas.gov/coronavirus/COVID19NewConfirmedCasesbyCounty.xlsx', sheet_name='New Cases by County 2022', skiprows=2)
+    df = pd.read_excel('https://dshs.texas.gov/sites/default/files/chs/data/Texas%20COVID-19%20New%20Probable%20Cases%20by%20County.xlsx', sheet_name='New Probable by County 2022', skiprows=2)
     df = df.iloc[:,list([0] + [-1])]
     df.columns = ['County', 'Cases']
     df.to_csv('data/texas_county_data.csv', index=False)
@@ -511,6 +511,9 @@ getPatientStatus(dailyData)
 getCumDeaths(dailyData)
 
 # State data
-getTexasCountyData()
+try:
+    getTexasCountyData()
+except:
+    print('🚨 Texas data not available 🚨')
 
 createMetadata()

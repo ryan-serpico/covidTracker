@@ -39,25 +39,25 @@ weeklyLabData = getWeeklyLabData()
 
 # DAILY GRAPHICS
 
-def getTwoWeekChange(data):
-    currentDataIndex = len(data) - 1
-    twoWeeksAgoIndex = currentDataIndex - 14
-    currentCaseAverage = data[currentDataIndex]['attributes']['count_7_day_moving_avg']
-    twoWeeksAgoCaseAverage = data[twoWeeksAgoIndex]['attributes']['count_7_day_moving_avg']
-    twoWeeksChange = round((currentCaseAverage - twoWeeksAgoCaseAverage) / twoWeeksAgoCaseAverage * 100, 1)
+# def getTwoWeekChange(data):
+#     currentDataIndex = len(data) - 1
+#     twoWeeksAgoIndex = currentDataIndex - 14
+#     currentCaseAverage = data[currentDataIndex]['attributes']['count_7_day_moving_avg']
+#     twoWeeksAgoCaseAverage = data[twoWeeksAgoIndex]['attributes']['count_7_day_moving_avg']
+#     twoWeeksChange = round((currentCaseAverage - twoWeeksAgoCaseAverage) / twoWeeksAgoCaseAverage * 100, 1)
 
-    if (twoWeeksChange > 0):
-        upDown = 'up'
-        color = 'red'
-    else:
-        upDown = 'down'
-        color = 'green'
+#     if (twoWeeksChange > 0):
+#         upDown = 'up'
+#         color = 'red'
+#     else:
+#         upDown = 'down'
+#         color = 'green'
 
-    s = '<div><p>The 7-day rolling average of new COVID-19 cases in San Antonio has gone <span style = "color: {}">{} by {}%</span> over the last two weeks.</p></div>'.format(color, upDown,twoWeeksChange)
+#     s = '<div><p>The 7-day rolling average of new COVID-19 cases in San Antonio has gone <span style = "color: {}">{} by {}%</span> over the last two weeks.</p></div>'.format(color, upDown,twoWeeksChange)
 
-    with open('data/twoWeeksChange.csv', 'w') as f:
-        writer = csv.writer(f)
-        writer.writerow([s])
+#     with open('data/twoWeeksChange.csv', 'w') as f:
+#         writer = csv.writer(f)
+#         writer.writerow([s])
 
 def getLast90Days(data):
     '''
@@ -501,7 +501,7 @@ getWeeklyCaseChange(weeklyData)
 # GetActiveCaseMap()
 
 # DAILY GRAPHICS
-getTwoWeekChange(dailyData)
+# getTwoWeekChange(dailyData)
 getLast90Days(dailyData)
 getSevenDayNewCases(dailyData)
 getCumConfirmedCases(dailyData)

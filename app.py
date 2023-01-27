@@ -16,6 +16,13 @@ def getWeeklyData():
     weeklyData = json.loads(r.text)['features']
     return weeklyData
 
+def getWeeklySAMHDData():
+    apiURL = 'https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vSAMHD_COVID19_DataEntry/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json'
+
+    r = requests.get(apiURL)
+    weeklySAMHDData = json.loads(r.text)['features']
+    return weeklySAMHDData
+
 
 def getWeeklyLabData():
     apirURL = 'https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vCOVID19_WeeklyLabTesting_Public/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json'
@@ -36,6 +43,7 @@ def getDailyData():
 dailyData = getDailyData()
 weeklyData = getWeeklyData()
 weeklyLabData = getWeeklyLabData()
+weeklySAMHDData = getWeeklySAMHDData()
 
 # DAILY GRAPHICS
 
@@ -495,6 +503,29 @@ def createMetadata():
     with open('data/metadata.json', 'w') as f:
         f.write(json_data)
 
+def get_average_daily_cases(data):
+    """
+    This function grabs the average number of daily cases for each week from the SAMHD data.
+    """
+    dailyCaseList = []
+
+    for week in range(len(data)):
+        
+        # If the average daily cases is None, then skip this week.
+        if data[week]['attributes']['average_daily_cases'] == None:
+            continue
+
+        datetime_time = datetime.datetime.fromtimestamp(data[week]['attributes']['reporting_date'] / 1000).strftime("%Y-%m-%d")
+
+        dailyCaseList.append({
+            'For the previous week of': datetime_time,
+            'Average daily cases': data[week]['attributes']['average_daily_cases']
+        })
+
+    df = pd.DataFrame(dailyCaseList)
+    df.to_csv('data/SAMHD_average_daily_cases_by_week.csv', index=False)
+
+
 # July 13, 2021 Functions
 getWeeklyPositivity(weeklyLabData)
 getWeeklyCaseChange(weeklyData)
@@ -510,6 +541,9 @@ getSevenDayNewDeaths(dailyData)
 getPatientStatus(dailyData)
 getCumDeaths(dailyData)
 
+# Beginning on Jan. 2, 2023, the city only updates the data once a week on Tuesdays.
+get_average_daily_cases(weeklySAMHDData)
+
 # State data
 try:
     getTexasCountyData()
@@ -517,3 +551,4 @@ except:
     print('🚨 Texas data not available 🚨')
 
 createMetadata()
+
